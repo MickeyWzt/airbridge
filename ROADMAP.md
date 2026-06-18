@@ -5,6 +5,7 @@ This roadmap describes the direction of AirBridge. It is not a promise of dates;
 ## Current Focus
 
 - Keep the shared UDP/HTTP protocol compatible across Windows, Android, iOS, and macOS.
+- Bring up the public WebRTC P2P web room as a browser-first transfer option.
 - Improve discovery reliability on school, dorm, office, and segmented LANs.
 - Keep the Windows release flow simple enough for non-developers to download and run.
 - Make the repository easier for contributors to understand through protocol docs, issue forms, and platform notes.
@@ -16,6 +17,8 @@ This roadmap describes the direction of AirBridge. It is not a promise of dates;
 - Add lightweight protocol tests for `/api/state`, message sending, and file upload.
 - Improve troubleshooting docs for firewall and manual-peer workflows.
 - Document supported file-size limits per platform.
+- Connect Windows, Android, iOS, and macOS native clients to the public web signaling protocol.
+- Add optional TURN configuration for users who accept relay infrastructure in difficult NAT environments.
 
 ## Longer-Term Ideas
 
@@ -29,5 +32,5 @@ This roadmap describes the direction of AirBridge. It is not a promise of dates;
 
 - Cloud relay servers.
 - Account login.
-- Public internet file sharing.
+- Server-side file storage or server-side file relay by default.
 - Replacing platform-native secure sharing tools for untrusted networks.

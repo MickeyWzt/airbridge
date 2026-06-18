@@ -2,6 +2,8 @@
 
 AirBridge is a no-login local network transfer protocol for trusted LANs.
 
+The public website mode uses a separate WebSocket/WebRTC protocol documented in `docs/WEB_P2P.md`.
+
 ## Discovery
 
 Devices announce themselves with UDP broadcast on port `45678`.

@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: airbridge-web
+    runtime: node
+    plan: free
+    rootDir: AirBridgeWeb
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeployTrigger: checksPass
+    buildFilter:
+      paths:
+        - AirBridgeWeb/**
+        - docs/WEB_P2P.md
+        - render.yaml
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AIRBRIDGE_WEB_IP_SALT
+        generateValue: true

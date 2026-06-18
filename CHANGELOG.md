@@ -8,6 +8,8 @@ This project follows a simple public changelog format inspired by Keep a Changel
 
 ### Added
 
+- Public WebRTC P2P web app in `AirBridgeWeb/` with room-code login, WebSocket signaling, Nearby grouping by public IP hash, DataChannel text messages, and file transfer progress.
+- Public web P2P protocol documentation for web and future native client integration.
 - Android GitHub update checks with APK download and Android installer handoff.
 - Android APK install provider for downloaded update packages.
 - English README and platform-specific README files for Windows, Android, iOS, and macOS workflows.

@@ -9,7 +9,10 @@ This guide describes the lightweight checks and local workflows that are useful 
 - `AirBridgeAndroid/` contains the native Android project.
 - `AirBridgeIOS/` contains the native iPhone/iPad SwiftUI project.
 - `AirBridgeMac/` contains the native macOS SwiftUI project.
+- `AirBridgeWeb/` contains the public WebRTC P2P room app and signaling server.
 - `docs/PROTOCOL.md` documents the shared LAN protocol.
+- `docs/WEB_P2P.md` documents the public web signaling and DataChannel protocol.
+- `docs/WEB_DEPLOYMENT.md` documents Render and Railway deployment.
 
 ## Local Python Checks
 
@@ -38,12 +41,31 @@ Before changing transfer behavior, check whether the change affects:
 
 If any of those change, update `docs/PROTOCOL.md`, `README.md`, and the pull request notes.
 
+## Public Web Checks
+
+Run these from `AirBridgeWeb/` after changing the web app or signaling server:
+
+```powershell
+npm install
+npm run typecheck
+npm run build
+```
+
+For local manual testing, run:
+
+```powershell
+npm run dev
+```
+
+Open two browser windows at `http://localhost:5173`, join the same room with different nicknames, select a peer, and test a text message plus a small file transfer.
+
 ## Platform Notes
 
 - Windows packaging uses `build_zip.ps1` and `build_exe.ps1`.
 - Android work should be opened in Android Studio through `AirBridgeAndroid/`.
 - iOS work requires Xcode and `AirBridgeIOS/AirBridgeIOS.xcodeproj`.
 - macOS work requires Xcode and `AirBridgeMac/AirBridgeMac.xcodeproj`.
+- Public web work requires Node.js and uses `AirBridgeWeb/package.json`.
 
 ## Release Checklist
 

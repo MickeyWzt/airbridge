@@ -34,3 +34,10 @@ AirBridgeAndroid/signing/
 # IDE/editor
 .idea/
 .vscode/
+
+# Node/Web
+node_modules/
+**/node_modules/
+**/dist-server/
+**/.vite/
+coverage/

@@ -22,3 +22,28 @@ jobs:
 
       - name: Compile Python entry points
         run: python -m py_compile airbridge.py airbridge_desktop.py
+
+  airbridge-web:
+    name: AirBridge Web checks
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: AirBridgeWeb
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: AirBridgeWeb/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck and build
+        run: npm run ci

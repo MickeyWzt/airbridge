@@ -5,13 +5,13 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Android%20%7C%20iOS%20%7C%20macOS-blue)](#platforms)
 
-AirBridge is a no-login local-network file and message transfer tool. It works a bit like AirDrop: run AirBridge on two devices connected to the same Wi-Fi or LAN, and they can discover each other, send text, and transfer files without a cloud server.
+AirBridge is a no-login file and message transfer tool. It works a bit like AirDrop: run AirBridge on two devices connected to the same Wi-Fi or LAN, and they can discover each other, send text, and transfer files without a cloud server. A public web P2P mode is also available for browser-based room transfer through WebRTC.
 
 ## At a Glance
 
 | Field | Details |
 | --- | --- |
-| Project status | Usable Windows release with source-first Android, iOS, and macOS ports. |
+| Project status | Usable Windows release, source-first Android/iOS/macOS ports, and a new public WebRTC P2P web app. |
 | Best for | Moving files or text between your own devices on a trusted local network. |
 | First thing to try | Download the latest Windows build, run it on two devices, and send a small text message first. |
 | Important caveat | Discovery depends on the local network allowing device-to-device traffic; some guest, school, corporate, VPN, or firewall setups block it. |
@@ -20,6 +20,8 @@ AirBridge is a no-login local-network file and message transfer tool. It works a
 
 - [Download the latest Windows build](https://github.com/MickeyWzt/airbridge/releases/latest)
 - [Protocol documentation](docs/PROTOCOL.md)
+- [Public Web P2P protocol](docs/WEB_P2P.md)
+- [Public Web deployment guide](docs/WEB_DEPLOYMENT.md)
 - [Development guide](docs/DEVELOPMENT.md)
 - [FAQ](docs/FAQ.md)
 - [Examples](docs/EXAMPLES.md)
@@ -43,6 +45,7 @@ If you want to run from source or work on the project, continue with the section
 ## Features
 
 - No account, login, or cloud relay server required.
+- Public web room mode with nickname + room code, WebSocket signaling, and WebRTC DataChannel transfer.
 - Standalone Windows desktop app; no browser is required for the main experience.
 - Automatic peer discovery on the same LAN and nearby network segments.
 - Manual peer entry for networks where broadcast discovery is blocked by routers or firewalls.
@@ -102,6 +105,31 @@ The browser-compatible version is still available:
 
 ```powershell
 python airbridge.py
+```
+
+## Public Web P2P Mode
+
+The public web version lives in `AirBridgeWeb/`:
+
+```powershell
+cd AirBridgeWeb
+npm install
+npm run dev
+```
+
+Open:
+
+```text
+http://localhost:5173
+```
+
+Users enter a room code and nickname. Devices in the same room are shown together, and devices with the same hashed public network key are prioritized under `Nearby`. Text messages and file bytes travel over WebRTC DataChannel; the Node server only handles room presence and WebRTC signaling.
+
+Read the deployment and protocol notes in:
+
+```text
+AirBridgeWeb\README.md
+docs\WEB_P2P.md
 ```
 
 ## Build a Distributable Zip
@@ -224,6 +252,12 @@ The local-network discovery and transfer protocol is documented in:
 
 ```text
 docs\PROTOCOL.md
+```
+
+The public website P2P protocol is documented in:
+
+```text
+docs\WEB_P2P.md
 ```
 
 The short version:
