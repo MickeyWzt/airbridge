@@ -55,6 +55,8 @@ npm run dev:web
 
 ## Production Build
 
+Run `npm test` for the signaling server regression test, or `npm run ci` for typechecks, the production build, and the test. The test starts a temporary local server and checks that malformed messages are rejected while valid room joins remain usable.
+
 ```powershell
 npm run build
 npm start
