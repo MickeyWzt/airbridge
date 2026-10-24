@@ -54,15 +54,23 @@ wss.on("connection", (socket, request) => {
   clients.set(socket, { socket });
 
   socket.on("message", (raw) => {
-    let message: ClientSignalMessage;
+    let message: unknown;
     try {
-      message = JSON.parse(raw.toString()) as ClientSignalMessage;
+      message = JSON.parse(raw.toString());
     } catch {
       send(socket, { type: "error", code: "bad_json", message: "Invalid JSON message." });
       return;
     }
 
-    handleClientMessage(socket, message, request);
+    if (
+      typeof message !== "object" || message === null || Array.isArray(message) ||
+      !("type" in message) || typeof message.type !== "string"
+    ) {
+      send(socket, { type: "error", code: "bad_message", message: "Expected a signaling object with a string type." });
+      return;
+    }
+
+    handleClientMessage(socket, message as ClientSignalMessage, request);
   });
 
   socket.on("close", () => {
@@ -126,6 +134,14 @@ function joinRoom(
   message: Extract<ClientSignalMessage, { type: "join_room" }>,
   request: http.IncomingMessage
 ) {
+  if (
+    typeof message.roomCode !== "string" || typeof message.nickname !== "string" ||
+    (message.peerId !== undefined && typeof message.peerId !== "string")
+  ) {
+    send(socket, { type: "error", code: "bad_join", message: "Room code, nickname, and optional peer ID must be strings." });
+    return;
+  }
+
   const roomCode = cleanRoomCode(message.roomCode);
   const nickname = cleanNickname(message.nickname);
 

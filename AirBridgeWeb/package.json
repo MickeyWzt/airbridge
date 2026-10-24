@@ -7,7 +7,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "ci": "npm run typecheck && npm run build",
+    "ci": "npm run typecheck && npm run build && npm test",
+    "test": "tsc -p tsconfig.server.json && node --test server/signaling.test.mjs",
     "dev": "concurrently -k -n server,web \"npm:dev:server\" \"npm:dev:web\"",
     "dev:server": "tsx watch server/index.ts",
     "dev:web": "vite --host 0.0.0.0 --port 5173",
